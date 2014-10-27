@@ -13,12 +13,8 @@
 (defn find-largest-contiguous [nums]
 
   (loop [nums nums
-         previous-stats {:max 0
-                         :count 0
-                         :start-index 0}
-         best-stats {:max 0
-                     :count 0
-                     :start-index 0}]
+         previous-stats {:max 0, :count 0, :start-index 0}
+         best-stats {:max 0, :count 0, :start-index 0}]
 
     (let [current-num (first nums)
           rest-nums (rest nums)]
@@ -34,26 +30,17 @@
                               :count (inc (:count previous-stats))
                               :start-index (:start-index previous-stats)})
 
-          (println current-num)
-          (println current-stats)
-
           (if (<= (:max current-stats) 0)
 
+            ; if the max has dropped to 0 or below, reset the running stats
             (recur rest-nums
-                   {:max 0
-                    :count 0
+                   {:max 0, :count 0,
                     :start-index (+ (:start-index current-stats) (:count current-stats))}
                    best-stats)
 
-              (if (> (:max current-stats) (:max best-stats))
-
-                (recur rest-nums
-                       current-stats
-                       current-stats)
-
-                (recur rest-nums
-                       current-stats
-                       best-stats))))))))
+            (if (> (:max current-stats) (:max best-stats))
+              (recur rest-nums current-stats current-stats)
+              (recur rest-nums current-stats best-stats))))))))
 
 
 
