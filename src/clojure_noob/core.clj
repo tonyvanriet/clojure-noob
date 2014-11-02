@@ -89,5 +89,32 @@
 (inc3 4)
 
 
+; into, conj
+
+(into [] {:a 1, :b 2, :c 3})
+(into {} [[1 2]])
+(into '() [1 2])
+
+(into [1 2] [3 4])
+(conj [1 2] 5 6)
+
+(defn my-conj
+  [to-seq & rest-params]
+  (into to-seq rest-params))
+
+(my-conj [1 2] 3 4)
+
+
+; apply, partial
+(apply + [1 2 3])
+; apply explodes a seq so it can be passed to a function that wants a rest param
+
+(defn my-into
+  [to-seq from-seq]
+  (apply conj to-seq from-seq))
+
+(my-into [1 2] [3 4])
+
+
 
 
