@@ -116,5 +116,47 @@
 (my-into [1 2] [3 4])
 
 
+(new String)
+
+(String. "asdfasdf")
+
+(= (last [1 2 3 4 5]) 5)
+(= (last '(5 4 3)) 3)
+
+(= (#(first (reverse %)) '(5 4 3)) 3)
+
+
+(defn reverse-coll
+  [coll]
+  (loop [coll coll
+         reverse-coll '()]
+    (if (empty? coll)
+      reverse-coll
+      (recur (rest coll)
+             (conj reverse-coll (first coll))))))
+
+(reverse-coll [1 2 3 4])
+
+
+(defn fib-seq [n]
+
+  (loop [fib-acc [1 1]
+         last-num 1
+         next-to-last-num 1]
+    (if (= n (count fib-acc))
+      fib-acc
+      (recur (conj fib-acc (+ next-to-last-num last-num))
+             (+ next-to-last-num last-num)
+             last-num))))
+
+
+(fib-seq 6)
+
+
+
+
+
+
+
 
 
